@@ -25,5 +25,10 @@ namespace FishTimer
         {
             await Shell.Current.GoToAsync("timers/new");
         }
+        
+        private async void OnDeleteTimersButtonClicked(object sender, EventArgs e)
+        {
+            await App.TimerRepository.DeleteAllTimers();
+        }
     }
 }

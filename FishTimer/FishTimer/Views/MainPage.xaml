@@ -62,6 +62,12 @@
                 SemanticProperties.Hint="Creates a new timer"
                 Clicked="OnCreateTimerButtonClicked"
                 HorizontalOptions="Center" />
+            
+            <Button
+                x:Name="DeleteAllTimersButton"
+                Text="Delete all timers"
+                Clicked="OnDeleteTimersButtonClicked"
+                HorizontalOptions="Center" />
         </VerticalStackLayout>
     </ScrollView>
 

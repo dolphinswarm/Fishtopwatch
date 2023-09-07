@@ -16,7 +16,8 @@ public partial class NewTimerPage : ContentPage
 		{
 			Name = NewTimerNameField.Text,
 			Description = NewTimerDescriptionField.Text,
-			StartTime = DateTime.Now.ToString()
+			StartTime = DateTime.Now.ToString(),
+			MostRecentStartTime = DateTime.Now.ToString(),
 		};
 
 		// Add it to the database

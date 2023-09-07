@@ -19,6 +19,7 @@
                 HorizontalOptions="Center"
                 x:Name="NewTimerNameField"
                 WidthRequest="200"
+                MaxLength="100"
             />
         </VerticalStackLayout>
 

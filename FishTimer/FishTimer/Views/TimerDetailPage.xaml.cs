@@ -16,7 +16,11 @@ public partial class TimerDetailPage : ContentPage
             timer = value;
             OnPropertyChanged();
 
-            SetCurrentTime(value);
+            SetViewInitialTime(value);
+
+            // If the timer WAS running, then show resume text. Otherwise, show stop text
+            ToggleTimerButton.Text = $"{(!value.IsRunning ? "Resume" : "Stop")} timer";
+            SemanticProperties.SetHint(ToggleTimerButton, $"{(!value.IsRunning ? "Resumes" : "Stops")} the timer");
         }
     }
 
@@ -46,32 +50,41 @@ public partial class TimerDetailPage : ContentPage
             TIMER_DURATION_IN_MILLISECONDS);
     }
 
-    void TimerTick(object stateInfo)
+    async void TimerTick(object stateInfo)
     {
-        SetCurrentTime(Timer);
+        if (Timer.IsRunning)
+        {
+            Timer.ElapsedTime++;
+            CurrentTime += TimeSpan.FromSeconds(1);
+
+            await App.TimerRepository.UpdateTimer(Timer);
+        }
     }
 
-    void SetCurrentTime(TimerModel timer)
+    void SetViewInitialTime(TimerModel timer)
     {
-        // Use the end time if we have it, otherwise the timer is running so just set it to now
-        // The ToString is hacky (should just do a proper ternary or TryParse) but this works sooooo
-        CurrentTime = DateTime.Parse(timer.EndTime ?? DateTime.Now.ToString()) - DateTime.Parse(Timer.StartTime);
+        // If the timer is running, get the most recent start time and get the number of seconds between them
+        uint secondsSinceLastStart = timer.IsRunning ?
+            (uint)(DateTime.Now - DateTime.Parse(timer.MostRecentStartTime)).TotalSeconds :
+            0; // <-- Else, just return 0 since ther is no change in time
+
+        // Get the number of seconds and create a timespan out of it
+        CurrentTime = TimeSpan.FromSeconds(timer.ElapsedTime + secondsSinceLastStart);
     }
 
     async Task ToggleTimer()
     {
-        // Is the timer running?
-        var isTimerRunning = Timer.EndTime == null;
+        var wasTimeRunning = Timer.IsRunning;
 
-        // If it is, stop it by adding an end time. Else, restart it by deleting it
-        Timer.EndTime = isTimerRunning ? DateTime.Now.ToString() : null;
+        Timer.IsRunning = !wasTimeRunning;  // <-- Invert the "Running" flag
+        Timer.MostRecentStartTime = wasTimeRunning ? Timer.MostRecentStartTime : DateTime.Now.ToString(); // <-- Set the most recent start time if the timer was just started
 
         // Send the new timer to the database
         await App.TimerRepository.UpdateTimer(Timer);
 
         // If the timer WAS running, then show resume text. Otherwise, show stop text
-        ToggleTimerButton.Text = $"{(isTimerRunning ? "Resume" : "Stop")} timer";
-        SemanticProperties.SetHint(ToggleTimerButton, $"{(isTimerRunning ? "Resumes" : "Stops")} the timer");
+        ToggleTimerButton.Text = $"{(wasTimeRunning ? "Resume" : "Stop")} timer";
+        SemanticProperties.SetHint(ToggleTimerButton, $"{(wasTimeRunning ? "Resumes" : "Stops")} the timer");
     }
 
     private async void OnToggleTimerButtonClicked(object sender, EventArgs e)
