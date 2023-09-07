@@ -10,10 +10,10 @@ namespace FishTimer.Models
     [Table("timers")]
     public class TimerModel
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        [MaxLength(250), Unique]
+        [MaxLength(250), Unique, NotNull]
         public string Name { get; set; }
 
         public string Description { get; set; }

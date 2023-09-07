@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FishTimer.Views.TimerDetailPage"
+             Title="TimerDetailPage">
+    <VerticalStackLayout
+            Spacing="10"
+            Padding="30,0">
+        <!-- Timer Image -->
+        <Image Source="fishtimer.png" Scale="0.5" />
+
+        <!-- Timer Name -->
+        <VerticalStackLayout>
+            <Label 
+                Text="Timer Name"
+                HorizontalOptions="Center" />
+            <Label 
+                Text="{Binding Timer.Name}"
+                HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+        <!-- Timer Description -->
+        <VerticalStackLayout>
+            <Label 
+                Text="Description"
+                HorizontalOptions="Center" />
+            <Label 
+                Text="{Binding Timer.Description}"
+                HorizontalOptions="Center" />
+        </VerticalStackLayout>
+        
+        <!-- Timer Time -->
+        <Grid
+            HorizontalOptions="CenterAndExpand"
+            ColumnSpacing="10"
+            RowSpacing="10"
+            >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <!-- Days -->
+            <Label 
+                Text="Days"
+                HorizontalOptions="Center"
+                Grid.Column="0"
+                Grid.Row="0"
+            />
+            <Label
+                Text="{Binding CurrentTime.Days}"
+                HorizontalOptions="Center"
+                Grid.Column="0"
+                Grid.Row="1"
+            />
+            
+            <!-- Hours -->
+            <Label 
+                Text="Hours"
+                Grid.Column="1"
+                Grid.Row="0"
+            />
+            <Label 
+                Text="{Binding CurrentTime.Hours}"
+                HorizontalOptions="Center"
+                Grid.Column="1"
+                Grid.Row="1"
+            />
+            
+            <!-- Minutes -->
+            <Label 
+                Text="Minutes"
+                HorizontalOptions="Center"
+                Grid.Column="2"
+                Grid.Row="0"
+            />
+            <Label 
+                Text="{Binding CurrentTime.Minutes}"
+                HorizontalOptions="Center"
+                Grid.Column="2"
+                Grid.Row="1"
+            /> 
+            
+            <!-- Seconds -->
+            <Label 
+                Text="Seconds"
+                HorizontalOptions="Center"
+                Grid.Column="3"
+                Grid.Row="0"
+            />
+            
+            <Label 
+                Text="{Binding CurrentTime.Seconds}"
+                HorizontalOptions="Center"
+                Grid.Column="3"
+                Grid.Row="1"
+            />
+        </Grid>
+
+        <Button
+            x:Name="ToggleTimerButton"
+            Text="Stop timer"
+            SemanticProperties.Hint="Stops the timer"
+            Clicked="OnToggleTimerButtonClicked"
+            HorizontalOptions="Center" />
+
+    </VerticalStackLayout>
+</ContentPage>
