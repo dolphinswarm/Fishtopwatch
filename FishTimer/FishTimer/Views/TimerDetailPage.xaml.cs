@@ -54,10 +54,10 @@ public partial class TimerDetailPage : ContentPage
     {
         if (Timer.IsRunning)
         {
-            Timer.ElapsedTime++;
+            //Timer.ElapsedTime++;
             CurrentTime += TimeSpan.FromSeconds(1);
 
-            await App.TimerRepository.UpdateTimer(Timer);
+            //await App.TimerRepository.UpdateTimer(Timer);
         }
     }
 
@@ -77,6 +77,7 @@ public partial class TimerDetailPage : ContentPage
         var wasTimeRunning = Timer.IsRunning;
 
         Timer.IsRunning = !wasTimeRunning;  // <-- Invert the "Running" flag
+        Timer.ElapsedTime += wasTimeRunning ? (uint)(DateTime.Now - DateTime.Parse(Timer.MostRecentStartTime)).TotalSeconds : 0; // Add time when the timer stops
         Timer.MostRecentStartTime = wasTimeRunning ? Timer.MostRecentStartTime : DateTime.Now.ToString(); // <-- Set the most recent start time if the timer was just started
 
         // Send the new timer to the database
