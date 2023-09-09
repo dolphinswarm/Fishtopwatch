@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Fishtopwatch.Views.NewStopwatchPage"
+             Title="Create New Stopwatch">
+    <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+        <!-- Stopwatch Name -->
+        <VerticalStackLayout>
+            <Label 
+                Text="Stopwatch Name"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+            />
+            <Entry
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                x:Name="NewStopwatchNameField"
+                WidthRequest="200"
+                MaxLength="100"
+            />
+        </VerticalStackLayout>
+
+        <!-- Description -->
+        <VerticalStackLayout>
+            <Label 
+                Text="Description"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+            />
+            <Entry
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                x:Name="NewStopwatchDescriptionField"
+                WidthRequest="200"
+            />
+        </VerticalStackLayout>
+
+        <!-- TODO Stopwatch Color -->
+
+        <!-- Submit Button -->
+        <Button
+            x:Name="SubmitButton"
+            Text="Create new Stopwatch"
+            SemanticProperties.Hint="Creates a new Stopwatch"
+            Clicked="OnCreateStopwatchButtonClicked"
+            HorizontalOptions="Center" />
+
+    </VerticalStackLayout>
+</ContentPage>
