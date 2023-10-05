@@ -3,6 +3,7 @@ using Fishtopwatch.Data;
 using Fishtopwatch.ViewModels;
 using Fishtopwatch.Views;
 using Microsoft.Extensions.Logging;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace Fishtopwatch
 {
@@ -14,6 +15,7 @@ namespace Fishtopwatch
             builder
                 .UseMauiApp<App>()
                 .UseMauiCommunityToolkit()
+                .UseSkiaSharp()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

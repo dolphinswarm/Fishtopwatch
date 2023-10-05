@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cp="https://trungnt2910.github.io/schemas/maui/2022/colorpicker"
+             xmlns:controls="clr-namespace:Maui.ColorPicker;assembly=Maui.ColorPicker"
              x:Class="Fishtopwatch.Views.NewStopwatchPage"
              Title="Create New Stopwatch">
+
     <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
@@ -38,7 +41,59 @@
             />
         </VerticalStackLayout>
 
-        <!-- TODO Stopwatch Color -->
+        <!-- Stopwatch Color -->
+        <!-- TODO: LOOK INTO COLOR PICKING MORE!! -->
+        <!--<VerticalStackLayout Spacing="5">
+            <Label 
+                Text="Color"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+            />
+            <Label
+                x:Name="SelectedColorValueLabel"
+                FontAttributes="Bold"
+                FontSize="Title"
+                HorizontalTextAlignment="Center"
+                HeightRequest="70"
+                HorizontalOptions="Center"
+                WidthRequest="250"
+                Text="#COLOR"
+                TextColor="SlateGray"
+                VerticalTextAlignment="Center" />
+            <Border
+                x:Name="ColorPickerHolderFrame"
+                HeightRequest="200"
+                HorizontalOptions="Center"
+                WidthRequest="300">
+                <controls:ColorPicker
+                    x:Name="ColorPicker"
+                    ColorFlowDirection="Horizontal"
+                    ColorSpectrumStyle="TintToHueToShadeStyle"
+                    PickedColorChanged="OnPickedColorChanged"
+                    PointerRingBorderUnits="0.3"
+                    PointerRingDiameterUnits="0.7">
+                    <controls:ColorPicker.BaseColorList>
+                        <x:Array Type="{x:Type x:String}">
+                            --><!--  Red  --><!--
+                            <x:String>#ff0000</x:String>
+                            --><!--  Yellow  --><!--
+                            <x:String>#ffff00</x:String>
+                            --><!--  Green (Lime)  --><!--
+                            <x:String>#00ff00</x:String>
+                            --><!--  Aqua  --><!--
+                            <x:String>#00ffff</x:String>
+                            --><!--  Blue  --><!--
+                            <x:String>#0000ff</x:String>
+                            --><!--  Fuchsia  --><!--
+                            <x:String>#ff00ff</x:String>
+                            --><!--  Red  --><!--
+                            <x:String>#ff0000</x:String>
+                        </x:Array>
+                    </controls:ColorPicker.BaseColorList>
+                </controls:ColorPicker>
+            </Border>
+        </VerticalStackLayout>-->
+       
 
         <!-- Submit Button -->
         <Button

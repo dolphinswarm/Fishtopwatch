@@ -5,6 +5,8 @@ namespace Fishtopwatch.Views
 {
 	public partial class NewStopwatchPage : ContentPage
 	{
+		Color pickedColor;
+
 		public NewStopwatchPage()
 		{
 			InitializeComponent();
@@ -18,7 +20,8 @@ namespace Fishtopwatch.Views
 				Description = NewStopwatchDescriptionField.Text,
 				StartTime = DateTime.Now.ToString(),
 				MostRecentStartTime = DateTime.Now.ToString(),
-			};
+				Color = pickedColor.ToHex()
+            };
 
 			// Add it to the database
 			var result = await App.StopwatchRepository.AddStopwatch(newStopwatch);
@@ -35,5 +38,13 @@ namespace Fishtopwatch.Views
 				await Shell.Current.GoToAsync("..");
 		}
 
-	}
+		// TODO LOOK INTO COLOR PICKING AND BINDING
+   //     private void OnPickedColorChanged(object sender, Color colorPicked)
+   //     {
+   //         // Use the selected color
+   //         SelectedColorValueLabel.Text = colorPicked.ToHex();
+   //         SelectedColorValueLabel.Background = colorPicked;
+			//pickedColor = colorPicked;
+   //     }
+    }
 }

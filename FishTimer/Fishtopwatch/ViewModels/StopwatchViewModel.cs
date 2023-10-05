@@ -31,10 +31,11 @@ namespace Fishtopwatch.ViewModels
 
             // Else, load the stopwatches from the databse
             var stopwatches = await App.StopwatchRepository.GetAllStopwatchs();
-            
-            stopwatches.ForEach(stopwatch => {
+
+            stopwatches.ForEach(stopwatch =>
+            {
                 Stopwatches.Add(stopwatch);
             });
-        }
+        }    
     }
 }

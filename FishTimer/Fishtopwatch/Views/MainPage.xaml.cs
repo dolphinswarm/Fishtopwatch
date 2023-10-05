@@ -1,4 +1,6 @@
-﻿using Fishtopwatch.Models;
+﻿using CommunityToolkit.Maui.Behaviors;
+using Fishtopwatch.Animations;
+using Fishtopwatch.Models;
 using Fishtopwatch.ViewModels;
 
 namespace Fishtopwatch.Views

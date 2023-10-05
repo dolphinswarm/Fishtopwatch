@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,5 +29,7 @@ namespace Fishtopwatch.Models
 
         [NotNull]
         public bool IsRunning { get; set; } = true;
+
+        public string Color { get; set; }
     }
 }

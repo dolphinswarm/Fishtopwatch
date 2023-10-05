@@ -1,3 +1,4 @@
+using Fishtopwatch.Animations;
 using Fishtopwatch.Models;
 
 namespace Fishtopwatch.Views

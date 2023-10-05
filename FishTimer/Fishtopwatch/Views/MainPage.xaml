@@ -3,72 +3,108 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local="clr-namespace:Fishtopwatch.ViewModels"
+             xmlns:animation="clr-namespace:Fishtopwatch.Animations"
+             xmlns:utils="clr-namespace:Fishtopwatch.Utilities"
              x:Class="Fishtopwatch.Views.MainPage"
              Title="Stopwatches">
 
     <ContentPage.BindingContext>
         <local:StopwatchViewModel />
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior
             EventName="Appearing"
             Command="{Binding GetStopwatchDataCommand}" />
     </ContentPage.Behaviors>
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <utils:HexToColorConverter x:Key="HexToColorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-            <CollectionView
+    <ScrollView>
+        <Grid Padding="10" RowSpacing="10">
+            <!-- Define rows of the grid -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Main StackLayout content -->
+            <VerticalStackLayout Grid.Row="0">
+                <CollectionView
                 x:Name="stopwatchList"
                 ItemsSource="{Binding Stopwatches}"
                 SelectionMode="Single"
                 SelectionChanged="OnItemClicked" >
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            <!--<Image Grid.RowSpan="2"
-                               Source="{Binding}"
-                               Aspect="AspectFill"
-                               HeightRequest="60"
-                               WidthRequest="60" />-->
-                            <Label Grid.Column="1"
-                               Text="{Binding Name}"
-                               FontAttributes="Bold" />
-                            <Label Grid.Row="1"
-                               Grid.Column="1"
-                               Text="{Binding Description}"
-                               FontAttributes="Italic"
-                               VerticalOptions="End" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.RowSpan="2"
+                                       Source="fishtopwatch.png"
+                                       Aspect="AspectFill"
+                                       HeightRequest="60"
+                                       WidthRequest="60">
+                                    <!-- TODO: LOOK INTO COLOR PICKING MORE!! -->
+                                    <!--<Image.Behaviors>
+                                        <toolkit:IconTintColorBehavior TintColor="{Binding Color, Converter={StaticResource HexToColorConverter}}" />
+                                    </Image.Behaviors>-->
+                                    <Image.Triggers>
+                                        <!-- This DataTrigger handles the fish animation if the timer is running -->
+                                        <DataTrigger TargetType="Image" Binding="{Binding IsRunning}" Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <animation:StartStopwatchAnimationAction />
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <animation:StopStopwatchAnimationAction />
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Image.Triggers>
+                                </Image>
+                                <Label Grid.Row="0"
+                                       Grid.Column="1"
+                                       Text="{Binding Name}"
+                                       FontSize="Large"
+                                       FontAttributes="Bold" />
+                                <Label Grid.Row="1"
+                                       Grid.Column="1"
+                                       Text="{Binding Description}"
+                                       FontAttributes="Italic" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
 
-            <Button
-                x:Name="CreateNewStopwatchButton"
-                Text="Create new stopwatch"
-                SemanticProperties.Hint="Creates a new stopwatch"
-                Clicked="OnCreateStopwatchButtonClicked"
-                HorizontalOptions="Center" />
-            
-            <Button
-                x:Name="DeleteAllStopwatchsButton"
-                Text="Delete all stopwatches"
-                Clicked="OnDeleteStopwatchsButtonClicked"
-                HorizontalOptions="Center" />
-        </VerticalStackLayout>
+            <!-- Bottom StackLayout content -->
+            <VerticalStackLayout Grid.Row="1" Padding="10" Spacing="10">
+                <Button
+                    x:Name="CreateNewStopwatchButton"
+                    Text="Create new stopwatch"
+                    SemanticProperties.Hint="Creates a new stopwatch"
+                    Clicked="OnCreateStopwatchButtonClicked"
+                    HorizontalOptions="Center" />
+
+                <Button
+                    x:Name="DeleteAllStopwatchsButton"
+                    Text="Delete all stopwatches"
+                    Clicked="OnDeleteStopwatchsButtonClicked"
+                    HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </Grid>
     </ScrollView>
 
 </ContentPage>

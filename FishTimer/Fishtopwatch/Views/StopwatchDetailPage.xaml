@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:animation="clr-namespace:Fishtopwatch.Animations"
              x:Class="Fishtopwatch.Views.StopwatchDetailPage"
              Title="StopwatchDetailPage">
     <VerticalStackLayout
             Spacing="10"
             Padding="30,0">
         <!-- Stopwatch Image -->
-        <Image Source="fishtopwatch.png" Scale="0.5" />
+        <Image Source="fishtopwatch.png" Scale="0.5" x:Name="FishImage">
+            <!-- TODO SETUP BETTER BINDING FOR THIS!! -->
+            <!--<Image.Triggers>
+                --><!-- This DataTrigger handles the fish animation if the timer is running --><!--
+                <DataTrigger TargetType="Image" Binding="{Binding Stopwatch.IsRunning}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <animation:StartStopwatchAnimationAction />
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <animation:StopStopwatchAnimationAction />
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </Image.Triggers>-->
+        </Image>
 
         <!-- Stopwatch Name -->
         <VerticalStackLayout>
