@@ -1,5 +1,6 @@
 using Fishtopwatch.Animations;
 using Fishtopwatch.Models;
+using static SQLite.SQLite3;
 
 namespace Fishtopwatch.Views
 {
@@ -90,6 +91,26 @@ namespace Fishtopwatch.Views
         private async void OnToggleStopwatchButtonClicked(object sender, EventArgs e)
         {
             await ToggleStopwatch();
+        }
+        
+        private async void OnDeleteStopwatchButtonClicked(object sender, EventArgs e)
+        {
+            bool shouldDeleteForReal = await DisplayAlert("Are you sure?", "Are you sure you'd like to delete this stopwatch? This action is irreversible!", "Yes", "No");
+
+            if (shouldDeleteForReal) {
+                var result = await App.StopwatchRepository.DeleteStopwatch(Stopwatch);
+
+                // Display an alert based on the result
+                await DisplayAlert(
+                    result ? "Success!" : "Failure!",
+                    result ? "Stopwatch successfully deleted!" : "Something went wrong trying to delete the topwatch!",
+                    "OK"
+                );
+
+                // Redirect back to home if this Stopwatch got made
+                if (result)
+                    await Shell.Current.GoToAsync("..");
+            }
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Maui.Behaviors;
-using Fishtopwatch.Animations;
-using Fishtopwatch.Models;
+﻿using Fishtopwatch.Models;
 using Fishtopwatch.ViewModels;
 
 namespace Fishtopwatch.Views
@@ -30,7 +28,20 @@ namespace Fishtopwatch.Views
         
         private async void OnDeleteStopwatchsButtonClicked(object sender, EventArgs e)
         {
-            await App.StopwatchRepository.DeleteAllStopwatchs();
+            bool shouldDeleteForReal = await DisplayAlert("Are you sure?", "Are you sure you'd like to delete this stopwatch? This action is irreversible!", "Yes", "No");
+
+            if (shouldDeleteForReal)
+            {
+                // Delete all items from the db
+                await App.StopwatchRepository.DeleteAllStopwatches();
+
+                // Execute the command to fetch the data after deleteing the items
+                var vm = (StopwatchViewModel)BindingContext;
+                if (vm.GetStopwatchDataCommand.CanExecute(null))
+                {
+                    vm.GetStopwatchDataCommand.Execute(null);
+                }
+            }
         }
     }
 }

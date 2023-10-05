@@ -122,6 +122,13 @@
             Text="Stop stopwatch"
             SemanticProperties.Hint="Stops the stopwatch"
             Clicked="OnToggleStopwatchButtonClicked"
+            HorizontalOptions="Center" /> 
+        
+        <Button
+            x:Name="DeleteStopwatchButton"
+            Text="Delete stopwatch"
+            SemanticProperties.Hint="Deletes the stopwatch"
+            Clicked="OnDeleteStopwatchButtonClicked"
             HorizontalOptions="Center" />
 
     </VerticalStackLayout>

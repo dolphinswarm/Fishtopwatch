@@ -29,13 +29,13 @@ namespace Fishtopwatch.ViewModels
             // Clear out the stopwatches so we can retrieve the new list
             Stopwatches.Clear();
 
-            // Else, load the stopwatches from the databse
-            var stopwatches = await App.StopwatchRepository.GetAllStopwatchs();
+            // Load the stopwatches from the databse and add them to the observable collection
+            var stopwatches = await App.StopwatchRepository.GetAllStopwatches();
 
             stopwatches.ForEach(stopwatch =>
             {
                 Stopwatches.Add(stopwatch);
             });
-        }    
+        }
     }
 }

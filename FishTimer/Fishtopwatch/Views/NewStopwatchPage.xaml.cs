@@ -5,7 +5,7 @@ namespace Fishtopwatch.Views
 {
 	public partial class NewStopwatchPage : ContentPage
 	{
-		Color pickedColor;
+		//Color pickedColor;
 
 		public NewStopwatchPage()
 		{
@@ -20,7 +20,7 @@ namespace Fishtopwatch.Views
 				Description = NewStopwatchDescriptionField.Text,
 				StartTime = DateTime.Now.ToString(),
 				MostRecentStartTime = DateTime.Now.ToString(),
-				Color = pickedColor.ToHex()
+				//Color = pickedColor.ToHex()
             };
 
 			// Add it to the database
@@ -29,7 +29,7 @@ namespace Fishtopwatch.Views
 			// Display an alert based on the result
 			await DisplayAlert(
 				result ? "Success!" : "Failure!",
-				result ? $"The Stopwatch {newStopwatch.Name} was successfully started!" : $"Something went wrong trying to start the new Stopwatch!",
+				result ? $"The stopwatch {newStopwatch.Name} was successfully started!" : "Something went wrong trying to start the new stopwatch!",
 				"OK"
 			);
 

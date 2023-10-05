@@ -16,13 +16,13 @@ namespace Fishtopwatch.Data
             var result = await Database.CreateTableAsync<StopwatchModel>();
         }
 
-        public async Task<List<StopwatchModel>> GetAllStopwatchs()
+        public async Task<List<StopwatchModel>> GetAllStopwatches()
         {
             Init();
             return await Database.Table<StopwatchModel>().ToListAsync();
         }
 
-        public async Task<int> DeleteAllStopwatchs()
+        public async Task<int> DeleteAllStopwatches()
         {
             Init();
             return await Database.DeleteAllAsync<StopwatchModel>();
